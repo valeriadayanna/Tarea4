@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -33,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        requestQueue = Volley.newRequestQueue(this);
     }
 
     private void setAdapter() {
         EvaluadorAdapter adapter = new EvaluadorAdapter(listaEvaluadores, this);
-        RecyclerView recyclerView = findViewById(R.id.recyclerEvaluador);
+        RecyclerView recyclerView = findViewById(R.id.recyclerEvaluado);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -48,33 +50,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buscarVolley(String url) {
-        JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new com.android.volley.Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        listaEvaluadores = new ArrayList<Evaluador>();
+                    public void onResponse(JSONObject response) {
+                        try {
+                            listaEvaluadores = new ArrayList<Evaluador>();
+                            JSONArray jsonArray = response.getJSONArray("listaaevaluador");
 
-                        int tamanio = response.length();
-                        if (tamanio > 0) {
-                            try {
-                                JSONArray jsonArray = response.getJSONArray(0);
-
+                            int tamanio = response.length();
+                            if (tamanio > 0) {
                                 for (int i = 0; i < tamanio; i++) {
-                                    JSONObject json = new JSONObject(response.get(i).toString());
+                                    JSONObject json = new JSONObject(jsonArray.getString(i));
                                     Evaluador Evaluador = new Evaluador(json.getString("idevaluador"),
                                             json.getString("nombres"), json.getString("area"),
                                             json.getString("imgJPG"), json.getString("imgjpg"));
                                     listaEvaluadores.add(Evaluador);
                                 }
-                            } catch (JSONException ex) {
-                                Toast.makeText(MainActivity.this, ex.getMessage(), Toast.LENGTH_LONG);
-                                System.out.println(ex.toString());
+                            } else {
+                                Toast.makeText(MainActivity.this, "Sin resultados", Toast.LENGTH_LONG);
                             }
-                        } else {
-                            Toast.makeText(MainActivity.this, "Sin resultados", Toast.LENGTH_LONG);
-
+                            setAdapter();
+                        } catch (JSONException ex) {
+                            Toast.makeText(MainActivity.this, ex.getMessage(), Toast.LENGTH_LONG);
+                            System.out.println(ex.toString());
                         }
-                        setAdapter();
                     }
                 }, new com.android.volley.Response.ErrorListener() {
             @Override

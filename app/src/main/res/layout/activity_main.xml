@@ -6,7 +6,7 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerEvaluador"
+        android:id="@+id/recyclerEvaluado"
         android:layout_width="409dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"

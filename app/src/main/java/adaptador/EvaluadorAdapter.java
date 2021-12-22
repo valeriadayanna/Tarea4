@@ -1,6 +1,9 @@
 package adaptador;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ejemplocardview.EvaluadosActivity;
 import com.example.ejemplocardview.R;
 
 import java.util.List;
@@ -42,6 +46,8 @@ public class EvaluadorAdapter extends RecyclerView.Adapter<EvaluadorAdapter.View
 
     @Override
     public void onBindViewHolder(final EvaluadorAdapter.ViewHolder holder, final int position) {
+        //holder.setItem(items.get(position));
+        //holder.
         holder.bindData(listaEvaluador.get(position));
     }
 
@@ -56,20 +62,37 @@ public class EvaluadorAdapter extends RecyclerView.Adapter<EvaluadorAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView lblIDEvaluador, lblNombres, lblArea;
-
+        ClipData.Item item;
         ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.picImg);
-            lblIDEvaluador = itemView.findViewById(R.id.lblIDEvaluador);
-            lblNombres = itemView.findViewById(R.id.lblNombre);
-            lblArea = itemView.findViewById(R.id.lblArea);
+            lblIDEvaluador = itemView.findViewById(R.id.lblSituacion);
+            lblNombres = itemView.findViewById(R.id.lblNombreEvaluado);
+            lblArea = itemView.findViewById(R.id.lblCargo);
         }
 
-        private void bindData(final Evaluador Evaluador) {
-            Glide.with(context).load(Evaluador.getImgJpg()).into(imageView);
-            lblIDEvaluador.setText(Evaluador.getIdEvaluador());
-            lblNombres.setText(Evaluador.getNombres());
-            lblArea.setText(Evaluador.getArea());
+        private void bindData(final Evaluador evaluador) {
+            Glide.with(context).load(evaluador.getImgJpg()).into(imageView);
+            lblIDEvaluador.setText(evaluador.getIdEvaluador());
+            lblNombres.setText(evaluador.getNombres());
+            lblArea.setText(evaluador.getArea());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Intent intent=new Intent(context, EvaluadosActivity.class);
+                    Bundle bundle =new Bundle();
+                    bundle.putSerializable("Evaluador", evaluador);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            });
+        }
+
+        public ClipData.Item getItem() {
+            return item;
+        }
+
+        public void setItem(ClipData.Item item) {
+            this.item = item;
         }
     }
 }

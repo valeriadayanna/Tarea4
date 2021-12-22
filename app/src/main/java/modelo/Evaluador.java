@@ -1,6 +1,8 @@
 package modelo;
 
-public class Evaluador {
+import java.io.Serializable;
+
+public class Evaluador implements Serializable {
 
     String idEvaluador, nombres, area, imgJPG, imgJpg;
 
