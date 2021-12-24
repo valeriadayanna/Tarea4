@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EjemploCardView">
         <activity
-            android:name=".EvaluadosActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
+            android:screenOrientation="sensorPortrait"
+            android:label="EjemploCardView"
+              android:exported="false"
+            />
+        <activity
+            android:name=".EvaluadosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -36,7 +36,6 @@ public class EvaluadosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_evaluados);
         Bundle bundle = getIntent().getExtras();
         Evaluador evaluador = (Evaluador) bundle.getSerializable("Evaluador");
-
         String id = evaluador.getIdEvaluador();
         requestQueue= Volley.newRequestQueue(this);
         buscarVolley("https://uealecpeterson.net/ws/listadoaevaluar.php", id);
