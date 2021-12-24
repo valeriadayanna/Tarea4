@@ -35,7 +35,7 @@ public class EvaluadoAdapter extends RecyclerView.Adapter<EvaluadoAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = lInflater.inflate(R.layout.layout_item, null);
+        View view = lInflater.inflate(R.layout.layout_itemevaluados, null);
         ViewHolder holder = new EvaluadoAdapter.ViewHolder(view);
         return holder;
     }
@@ -67,7 +67,7 @@ public class EvaluadoAdapter extends RecyclerView.Adapter<EvaluadoAdapter.ViewHo
         }
 
         private void bindData(final Evaluado evaluador) {
-            Glide.with(context).load(evaluador.getImgJpg()).into(imageView);
+            Glide.with(context).load(evaluador.getImgJpg()).error("https://evaladmin.uteq.edu.ec/adminimg/unknown.png").into(imageView);
             lblCargo.setText(evaluador.getIdEvaluado());
             lblNombreEvaluado.setText("Nombre: "+evaluador.getNombres());
             lblSituacion.setText(evaluador.getSituacion());

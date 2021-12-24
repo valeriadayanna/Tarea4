@@ -39,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void setAdapter() {
         EvaluadorAdapter adapter = new EvaluadorAdapter(listaEvaluadores, this);
-        RecyclerView recyclerView = findViewById(R.id.recyclerEvaluado);
+        RecyclerView recyclerView = findViewById(R.id.recyclerEvaluador);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
     public void eventoVolley(View v) {
-        buscarVolley("https://evaladmin.uteq.edu.ec/ws/listadoevaluadores.php");
+        buscarVolley("https://www.uealecpeterson.net/ws/listadoevaluadores.php");
     }
 
     private void buscarVolley(String url) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             listaEvaluadores = new ArrayList<Evaluador>();
                             JSONArray jsonArray = response.getJSONArray("listaaevaluador");
 
-                            int tamanio = response.length();
+                            int tamanio = jsonArray.length();
                             if (tamanio > 0) {
                                 for (int i = 0; i < tamanio; i++) {
                                     JSONObject json = new JSONObject(jsonArray.getString(i));

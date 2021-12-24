@@ -19,11 +19,27 @@
             android:layout_height="match_parent"
             android:padding="8dp">
 
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblIdEvaluador"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toEndOf="@+id/picImg"
+                android:layout_toRightOf="@+id/picImg"
+                android:text="Button" />
+
             <TextView
-                android:id="@+id/lblNombreEvaluado"
+                android:id="@+id/lblNombreEvaluador"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lblCargo"
+                android:layout_below="@+id/lblArea"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="15dp"
@@ -39,11 +55,11 @@
             <ImageView
                 android:id="@+id/picImg"
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:padding="4dp" />
 
             <TextView
-                android:id="@+id/lblCargo"
+                android:id="@+id/lblArea"
                 android:layout_width="281dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -62,10 +78,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/lblSituacion"
+                android:id="@+id/lblIdEvaluador"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lblNombreEvaluado"
+                android:layout_below="@+id/lblNombreEvaluador"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="11dp"
                 android:layout_marginTop="4dp"

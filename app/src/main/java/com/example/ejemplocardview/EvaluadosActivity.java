@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,11 +34,11 @@ public class EvaluadosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluados);
-
         Bundle bundle = getIntent().getExtras();
-        Evaluador evaluador = (Evaluador) bundle.getSerializable("Usuario");
+        Evaluador evaluador = (Evaluador) bundle.getSerializable("Evaluador");
 
         String id = evaluador.getIdEvaluador();
+        requestQueue= Volley.newRequestQueue(this);
         buscarVolley("https://uealecpeterson.net/ws/listadoaevaluar.php", id);
     }
 
@@ -51,7 +52,7 @@ public class EvaluadosActivity extends AppCompatActivity {
                             listaEvaluados = new ArrayList<Evaluado>();
                             JSONArray jsonArray = response.getJSONArray("listaaevaluador");
 
-                            int tamanio = response.length();
+                            int tamanio = jsonArray.length();
                             if (tamanio > 0) {
                                 for (int i = 0; i < tamanio; i++) {
                                     JSONObject json = new JSONObject(jsonArray.getString(i));
